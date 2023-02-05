@@ -9,7 +9,6 @@ import useValidation, {
 
 export default function Signup() {
   const { signup, token } = useAuth();
-  console.log('signup: ', signup);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValidate, resultEmailMessage] = useValidation('email', email);
@@ -45,7 +44,7 @@ export default function Signup() {
     if (token) {
       navigate('/todo');
     }
-  }, []);
+  }, [navigate, token]);
 
   return (
     <>

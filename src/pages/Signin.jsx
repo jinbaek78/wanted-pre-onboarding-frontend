@@ -8,7 +8,6 @@ export default function Signin() {
   const { signin, token } = useAuth();
   const [email, setEmail] = useState(state ? state.email : '');
   const [password, setPassword] = useState(state ? state.password : '');
-  console.log('email, password:', email, password);
 
   const [signinErrorMessage, setSigninErrorMessage] = useState('');
   const navigate = useNavigate();
@@ -39,7 +38,7 @@ export default function Signin() {
     if (token) {
       navigate('/todo');
     }
-  }, []);
+  }, [navigate, token]);
 
   return (
     <>
