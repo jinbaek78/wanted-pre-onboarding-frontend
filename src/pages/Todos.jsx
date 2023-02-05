@@ -7,7 +7,7 @@ import useTodos from '../hooks/useTodos';
 export default function Todo({ todosApi }) {
   const { token } = useAuth();
   const { state } = useLocation();
-  const [todos, addTodo, updateTodo] = useTodos(todosApi);
+  const [todos, addTodo, updateTodo, deleteTodo] = useTodos(todosApi);
   const [text, setText] = useState('');
   const navigate = useNavigate();
 
@@ -46,7 +46,12 @@ export default function Todo({ todosApi }) {
       </div>
       <ul>
         {todos?.map?.((todo) => (
-          <TodoItem key={todo.id} todo={todo} onCheckedChange={updateTodo} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onCheckedChange={updateTodo}
+            onDelete={deleteTodo}
+          />
         ))}
       </ul>
     </>

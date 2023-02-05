@@ -43,4 +43,12 @@ export default class Todos {
       }
     );
   }
+
+  async deleteTodo(id) {
+    return await this.#httpClient.delete(`/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+  }
 }

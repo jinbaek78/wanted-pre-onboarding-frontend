@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export default function TodoItem({ todo, onCheckedChange }) {
+export default function TodoItem({ todo, onCheckedChange, onDelete }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { todo: thingsTodo, isCompleted } = todo;
+  const { todo: thingsTodo, isCompleted, id } = todo;
   const [text, setText] = useState(thingsTodo);
   const handleTextOnchange = (e) => {
     setText(e.target.value);
@@ -13,6 +13,10 @@ export default function TodoItem({ todo, onCheckedChange }) {
 
   const handleModifyClick = () => {
     setIsEditMode(!isEditMode);
+  };
+
+  const handleDeleteClick = () => {
+    onDelete(id);
   };
   return (
     <li className="p-2 flex justify-between w-2/3 my-2">
@@ -52,12 +56,17 @@ export default function TodoItem({ todo, onCheckedChange }) {
           <>
             {' '}
             <button
+              data-testid="modify-button"
               className="bg-sky-300  ml-3 outline p-1"
               onClick={handleModifyClick}
             >
               수정
             </button>
-            <button className="bg-zinc-100  ml-3 outline p-1 mr-20">
+            <button
+              data-testid="delete-button"
+              className="bg-zinc-100  ml-3 outline p-1 mr-20"
+              onClick={handleDeleteClick}
+            >
               삭제
             </button>
           </>

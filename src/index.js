@@ -5,13 +5,13 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
-import Todo from './pages/Todo';
+import Todos from './pages/Todos';
 import AuthProvider from './context/AuthContext';
-import Auth from './api/auth';
-import Todos from './api/todos';
+import AuthApi from './api/auth';
+import TodoApi from './api/todos';
 
-const authApi = new Auth();
-const todosApi = new Todos();
+const authApi = new AuthApi();
+const todosApi = new TodoApi();
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/todo',
-    element: <Todo todosApi={todosApi} />,
+    element: <Todos todosApi={todosApi} />,
   },
 ]);
 

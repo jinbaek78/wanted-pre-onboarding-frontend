@@ -5,8 +5,9 @@ export default function useTodos(todosApi) {
   const addTodo = async (text) => todosApi.addTodo(text).then(getTodos);
   const getTodos = async () => todosApi.getTodoList().then(setTodos);
   const updateTodo = async (data) => todosApi.updateTodo(data).then(getTodos);
+  const deleteTodo = async (id) => todosApi.deleteTodo(id).then(getTodos);
   useEffect(() => {
     getTodos();
   }, []);
-  return [todos, addTodo, updateTodo];
+  return [todos, addTodo, updateTodo, deleteTodo];
 }
