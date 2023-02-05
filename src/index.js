@@ -8,8 +8,10 @@ import Signup from './pages/Signup';
 import Todo from './pages/Todo';
 import AuthProvider from './context/AuthContext';
 import Auth from './api/auth';
+import Todos from './api/todos';
 
-const auth = new Auth();
+const authApi = new Auth();
+const todosApi = new Todos();
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,14 +27,14 @@ const router = createBrowserRouter([
   },
   {
     path: '/todo',
-    element: <Todo />,
+    element: <Todo todosApi={todosApi} />,
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider auth={auth}>
+    <AuthProvider authApi={authApi}>
       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>

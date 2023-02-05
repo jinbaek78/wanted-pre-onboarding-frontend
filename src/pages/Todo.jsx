@@ -1,49 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TodoItem from '../components/TodoItem';
 import { useAuth } from '../context/AuthContext';
+import useTodos from '../hooks/useTodos';
 
-export default function Todo() {
+export default function Todo({ todosApi }) {
   const { token } = useAuth();
   const { state } = useLocation();
-  const todos = [
-    {
-      id: 1992,
-      todo: 'todo1',
-      isCompleted: false,
-      userId: 1075,
-    },
-    {
-      id: 1993,
-      todo: 'todo2',
-      isCompleted: false,
-      userId: 1075,
-    },
-    {
-      id: 1994,
-      todo: 'todo3',
-      isCompleted: false,
-      userId: 1075,
-    },
-    {
-      id: 1995,
-      todo: 'todo4',
-      isCompleted: false,
-      userId: 1075,
-    },
-    {
-      id: 2047,
-      todo: 'todo5',
-      isCompleted: false,
-      userId: 1075,
-    },
-    {
-      id: 2048,
-      todo: 'todo6',
-      isCompleted: false,
-      userId: 1075,
-    },
-  ];
+  const todos = useTodos(todosApi);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (!token && !state) {
@@ -60,7 +25,7 @@ export default function Todo() {
         <button className="bg-sky-300  ml-3 outline p-1 ">추가</button>
       </div>
       <ul>
-        {todos.map((todo) => (
+        {todos?.map?.((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
