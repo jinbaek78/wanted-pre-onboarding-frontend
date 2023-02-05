@@ -4,6 +4,6 @@ export function isValidate(type, value) {
   }
 
   if (type === 'password') {
-    return value.length > 0 && value.length > 8;
+    return value.length > 0 && value.length > 7;
   }
 }
