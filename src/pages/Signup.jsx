@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import useValidation, {
@@ -7,6 +7,7 @@ import useValidation, {
 } from '../hooks/useValidation';
 
 export default function Signup() {
+  const { signup, token } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValidate, resultEmailMessage] = useValidation('email', email);
@@ -15,8 +16,8 @@ export default function Signup() {
     password
   );
   const [signupErrorMessage, setSignupErrorMessage] = useState('');
-  const { signup } = useAuth();
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -37,6 +38,12 @@ export default function Signup() {
       setSignupErrorMessage(data.errorMessage);
     });
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate('/todo');
+    }
+  }, []);
 
   return (
     <>
