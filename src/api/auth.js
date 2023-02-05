@@ -15,4 +15,13 @@ export default class Auth {
     const result = await this.#httpClient.post('signup', data);
     return result.data;
   }
+
+  async signin(data) {
+    const result = await this.#httpClient.post('signin', data);
+    const token = result?.data?.['access_token'];
+    if (token) {
+      localStorage.setItem('token', token);
+    }
+    return result.data;
+  }
 }

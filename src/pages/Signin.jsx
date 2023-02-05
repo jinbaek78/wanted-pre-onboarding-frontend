@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Signin() {
   const { state } = useLocation();
-  console.log('state: ', state);
+  const { signin } = useAuth();
   const [email, setEmail] = useState(state ? state.email : '');
   const [password, setPassword] = useState(state ? state.password : '');
+
+  const [signinErrorMessage, setSigninErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +20,15 @@ export default function Signin() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleLoginClick = () => {
+    signin({ email, password }).then((data) => {
+      if (data?.['access_token']) {
+        return navigate('/todo');
+      }
+      setSigninErrorMessage(data.errorMessage);
+    });
   };
 
   return (
@@ -50,9 +63,13 @@ export default function Signin() {
           type="submit"
           disabled={false}
           className="w-full h-10 bg-[#c0e1f7] text-xl mt-10 disabled:bg-zinc-200"
+          onClick={handleLoginClick}
         >
           로그인
         </button>
+        {signinErrorMessage && (
+          <p className="text-red-500">{signinErrorMessage}</p>
+        )}
       </form>
     </>
   );
