@@ -4,9 +4,11 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const { todo: thingsTodo, isCompleted, id } = todo;
   const [text, setText] = useState(thingsTodo);
-  const handleTextOnchange = (e) => {
+
+  const handleTextChange = (e) => {
     setText(e.target.value);
   };
+
   const handleCheckedChange = (e) => {
     onUpdate({ ...todo, isCompleted: !todo.isCompleted });
   };
@@ -15,8 +17,18 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
     setIsEditMode(!isEditMode);
   };
 
+  const handleCancelClick = () => {
+    setIsEditMode(!isEditMode);
+    setText(thingsTodo);
+  };
+
   const handleDeleteClick = () => {
     onDelete(id);
+  };
+
+  const handleSubmitClick = () => {
+    onUpdate({ ...todo, todo: text });
+    setIsEditMode(!isEditMode);
   };
   return (
     <li className="p-2 flex justify-between w-2/3 my-2">
@@ -32,7 +44,7 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
             <input
               data-testid="modify-input"
               className="w-full focus:outline text-xl   mr-5 p-1"
-              onChange={handleTextOnchange}
+              onChange={handleTextChange}
               value={text}
               autoFocus
             />
@@ -48,13 +60,14 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
             <button
               data-testid="submit-button"
               className="bg-sky-300  ml-3 outline p-1"
+              onClick={handleSubmitClick}
             >
               제출
             </button>
             <button
               data-testid="cancel-button"
               className="bg-zinc-100  ml-3 outline p-1"
-              onClick={handleModifyClick}
+              onClick={handleCancelClick}
             >
               취소
             </button>
