@@ -51,6 +51,7 @@ export default function Todo({ todosApi }) {
             todo={todo}
             onCheckedChange={updateTodo}
             onDelete={deleteTodo}
+            onUpdate={updateTodo}
           />
         ))}
       </ul>

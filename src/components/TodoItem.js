@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function TodoItem({ todo, onCheckedChange, onDelete }) {
+export default function TodoItem({ todo, onUpdate, onDelete }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const { todo: thingsTodo, isCompleted, id } = todo;
   const [text, setText] = useState(thingsTodo);
@@ -8,7 +8,7 @@ export default function TodoItem({ todo, onCheckedChange, onDelete }) {
     setText(e.target.value);
   };
   const handleCheckedChange = (e) => {
-    onCheckedChange({ ...todo, isCompleted: !todo.isCompleted });
+    onUpdate({ ...todo, isCompleted: !todo.isCompleted });
   };
 
   const handleModifyClick = () => {
@@ -30,6 +30,7 @@ export default function TodoItem({ todo, onCheckedChange, onDelete }) {
         <span className="w-full h-6">
           {isEditMode ? (
             <input
+              data-testid="modify-input"
               className="w-full focus:outline text-xl   mr-5 p-1"
               onChange={handleTextOnchange}
               value={text}
@@ -44,8 +45,14 @@ export default function TodoItem({ todo, onCheckedChange, onDelete }) {
         {isEditMode ? (
           <>
             {' '}
-            <button className="bg-sky-300  ml-3 outline p-1">제출</button>
             <button
+              data-testid="submit-button"
+              className="bg-sky-300  ml-3 outline p-1"
+            >
+              제출
+            </button>
+            <button
+              data-testid="cancel-button"
               className="bg-zinc-100  ml-3 outline p-1"
               onClick={handleModifyClick}
             >
