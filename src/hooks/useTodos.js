@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-export default function useTodos(todosApi) {
+export default function useTodos(todosApi, data) {
   const [todos, setTodos] = useState(null);
+  const addTodo = async (text) =>
+    todosApi.addTodo({ todo: text }).then(getTodos);
+
+  const getTodos = async () => todosApi.getTodos().then(setTodos);
+
   useEffect(() => {
-    todosApi.getTodos().then((data) => setTodos(data));
+    getTodos();
   }, []);
-  return todos;
+  return [todos, addTodo];
 }

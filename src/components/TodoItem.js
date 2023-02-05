@@ -39,7 +39,7 @@ export default function TodoItem({ todo }) {
               autoFocus
             />
           ) : (
-            <p className="text-xl leading-[22px] p-1">thingsTodo</p>
+            <p className="text-xl leading-[22px] p-1">{thingsTodo}</p>
           )}
         </span>
       </label>

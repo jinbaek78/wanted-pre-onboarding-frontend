@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState } from 'react';
 
 const authContext = createContext(null);
 
-export default function AuthProvider({ auth, children }) {
+export default function AuthProvider({ authApi, children }) {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const signup = async (data) =>
-    auth.signup(data).catch((err) => {
+    authApi.signup(data).catch((err) => {
       if (err.response.data.statusCode === 400) {
         return { errorMessage: '이미 가입한 계정이에요' };
       } else {
@@ -13,7 +13,7 @@ export default function AuthProvider({ auth, children }) {
       }
     });
   const signin = async (data) =>
-    auth
+    authApi
       .signin(data)
       .then((data) => {
         setToken(data['access_token']);

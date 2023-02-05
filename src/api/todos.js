@@ -12,22 +12,21 @@ export default class Todos {
   }
 
   async getTodos() {
-    console.log('has token? ', localStorage.getItem('token'));
     const result = await this.#httpClient.get('/', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    console.log('result: ', result);
     return result.data;
   }
 
-  // async signin(data) {
-  //   const result = await this.#httpClient.post('signin', data);
-  //   const token = result?.data?.['access_token'];
-  //   if (token) {
-  //     localStorage.setItem('token', token);
-  //   }
-  //   return result.data;
-  // }
+  async addTodo(data) {
+    const result = await this.#httpClient.post('/', data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: { todo: data },
+    });
+    return result.data;
+  }
 }
