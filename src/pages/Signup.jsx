@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import useValidation, {
   ERROR_MESSAGE,
   SUCCESS_MESSAGE,
@@ -12,9 +14,9 @@ export default function Signup() {
     'password',
     password
   );
-
-  console.log(isEmailValidate, isPasswordValidate);
-
+  const [signupErrorMessage, setSignupErrorMessage] = useState('');
+  const { signup } = useAuth();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -25,6 +27,15 @@ export default function Signup() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleJoinClick = () => {
+    signup({ email, password }).then((data) => {
+      if (data?.['access_token']) {
+        return navigate('/signin');
+      }
+      setSignupErrorMessage(data.errorMessage);
+    });
   };
 
   return (
@@ -81,9 +92,13 @@ export default function Signup() {
           type="submit"
           disabled={!isEmailValidate || !isPasswordValidate}
           className="w-full h-10 bg-[#c0e1f7] text-xl mt-10 disabled:bg-zinc-200"
+          onClick={handleJoinClick}
         >
           회원가입
         </button>
+        {signupErrorMessage && (
+          <p className="text-red-500">{signupErrorMessage}</p>
+        )}
       </form>
     </>
   );
