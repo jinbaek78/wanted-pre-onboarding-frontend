@@ -7,9 +7,8 @@ import useTodos from '../hooks/useTodos';
 export default function Todo({ todosApi }) {
   const { token } = useAuth();
   const { state } = useLocation();
-  const [todos, addTodo] = useTodos(todosApi);
+  const [todos, addTodo, updateTodo] = useTodos(todosApi);
   const [text, setText] = useState('');
-
   const navigate = useNavigate();
 
   const handleTextChange = (e) => {
@@ -47,7 +46,7 @@ export default function Todo({ todosApi }) {
       </div>
       <ul>
         {todos?.map?.((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} todo={todo} onCheckedChange={updateTodo} />
         ))}
       </ul>
     </>

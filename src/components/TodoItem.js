@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
-const todoType = {
-  id: 1992,
-  todo: 'todo1',
-  isCompleted: false,
-  userId: 1075,
-};
 
-export default function TodoItem({ todo }) {
+export default function TodoItem({ todo, onCheckedChange }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const { todo: thingsTodo, isCompleted } = todo;
   const [text, setText] = useState(thingsTodo);
-  const [isChecked, setIsChecked] = useState(isCompleted);
   const handleTextOnchange = (e) => {
     setText(e.target.value);
   };
   const handleCheckedChange = (e) => {
-    setIsChecked(e.target.value);
+    onCheckedChange({ ...todo, isCompleted: !todo.isCompleted });
   };
 
   const handleModifyClick = () => {
@@ -27,7 +20,7 @@ export default function TodoItem({ todo }) {
         <input
           className="w-4 h-6 mr-2"
           type="checkbox"
-          value={isChecked}
+          checked={isCompleted}
           onChange={handleCheckedChange}
         />
         <span className="w-full h-6">
