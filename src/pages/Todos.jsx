@@ -31,7 +31,7 @@ export default function Todo({ todosApi }) {
       <div className="mb-3">
         <input
           data-testid="new-todo-input"
-          className="p-1 px-2 outline rounded-sm"
+          className="p-1 px-2 outline rounded-sm focus:outline-sky-300 focus:outline-2"
           type="text"
           value={text}
           onChange={handleTextChange}

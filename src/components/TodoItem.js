@@ -31,10 +31,10 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
     setIsEditMode(!isEditMode);
   };
   return (
-    <li className="p-2 flex justify-between w-2/3 my-2">
-      <label className="flex  items-center ">
+    <li className="p-2 flex w-full my-2">
+      <label className="flex basis-8/12 items-center ">
         <input
-          className="w-4 h-6 mr-2"
+          className="w-7 h-6 mr-2 accent-sky-200"
           type="checkbox"
           checked={isCompleted}
           onChange={handleCheckedChange}
@@ -43,17 +43,17 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
           {isEditMode ? (
             <input
               data-testid="modify-input"
-              className="w-full focus:outline text-xl   mr-5 p-1"
+              className="w-full focus:outline mb-1 text-xl outline-sky-300 focus:outline-2"
               onChange={handleTextChange}
               value={text}
               autoFocus
             />
           ) : (
-            <p className="text-xl leading-[22px] p-1">{thingsTodo}</p>
+            <p className="text-xl ">{thingsTodo}</p>
           )}
         </span>
       </label>
-      <div className="ml-10">
+      <div className="ml-10 basis-4/12">
         {isEditMode ? (
           <>
             {' '}
