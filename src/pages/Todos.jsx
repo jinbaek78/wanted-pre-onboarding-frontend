@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import TodoItem from '../components/TodoItem';
 import { useAuth } from '../context/AuthContext';
 import useTodos from '../hooks/useTodos';
@@ -25,9 +26,7 @@ export default function Todo({ todosApi }) {
   }, [state, token, navigate]);
   return (
     <>
-      <header className="text-2xl border-b border-b-zinc-300 mb-5 py-4">
-        TODO LIST
-      </header>
+      <Header name="TODO LIST" />
       <div className="mb-3">
         <input
           data-testid="new-todo-input"

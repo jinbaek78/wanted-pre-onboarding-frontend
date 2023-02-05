@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 
 export default function Signin() {
@@ -42,9 +43,7 @@ export default function Signin() {
 
   return (
     <>
-      <header className="text-2xl border-b border-b-zinc-300 mb-5 py-4">
-        로그인
-      </header>
+      <Header name="로그인" />
       <form onSubmit={handleSubmit}>
         <div className=" h-10 border border-zinc-300 p-1 my-2">
           <input

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
 import useValidation, {
   ERROR_MESSAGE,
@@ -48,9 +49,7 @@ export default function Signup() {
 
   return (
     <>
-      <header className="text-2xl border-b border-b-zinc-300 mb-5 py-4">
-        회원가입
-      </header>
+      <Header name="회원가입" />
       <form onSubmit={handleSubmit}>
         <div className=" h-10 border border-zinc-300 p-1 my-2">
           <input
