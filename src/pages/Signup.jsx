@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { useAuth } from '../context/AuthContext';
 import useValidation, {
   ERROR_MESSAGE,
   SUCCESS_MESSAGE,
 } from '../hooks/useValidation';
 
-export default function Signup() {
-  const { signup, token } = useAuth();
+export default function Signup({ authApi }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEmailValidate, resultEmailMessage] = useValidation('email', email);
@@ -32,7 +30,7 @@ export default function Signup() {
   };
 
   const handleJoinClick = () => {
-    signup({ email, password }).then((data) => {
+    authApi.signup({ email, password }).then((data) => {
       if (data?.token) {
         return navigate('/signin', { state: { email, password } });
       }
@@ -41,10 +39,10 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem('token')) {
       navigate('/todo');
     }
-  }, [navigate, token]);
+  }, [navigate]);
 
   return (
     <>

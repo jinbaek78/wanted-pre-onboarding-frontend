@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 
 export default function useTodos(todosApi) {
   const [todos, setTodos] = useState(null);
-  const { token } = useAuth();
   const getTodos = useCallback(
     async () => todosApi.getTodoList().then(setTodos),
     [todosApi]
@@ -21,7 +19,7 @@ export default function useTodos(todosApi) {
     [todosApi, getTodos]
   );
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem('token')) {
       getTodos();
     }
   }, [getTodos]);

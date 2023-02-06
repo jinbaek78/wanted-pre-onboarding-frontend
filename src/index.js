@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Todos from './pages/Todos';
-import AuthProvider from './context/AuthContext';
 import AuthApi from './api/auth';
 import TodoApi from './api/todos';
 
@@ -19,11 +18,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/signin',
-    element: <Signin />,
+    element: <Signin authApi={authApi} />,
   },
   {
     path: '/signup',
-    element: <Signup />,
+    element: <Signup authApi={authApi} />,
   },
   {
     path: '/todo',
@@ -34,9 +33,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider authApi={authApi}>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

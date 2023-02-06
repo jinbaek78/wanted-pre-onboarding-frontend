@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { useAuth } from '../context/AuthContext';
 
-export default function Signin() {
+export default function Signin({ authApi }) {
   const { state } = useLocation();
-  const { signin, token } = useAuth();
   const [email, setEmail] = useState(state ? state.email : '');
   const [password, setPassword] = useState(state ? state.password : '');
 
@@ -24,21 +22,19 @@ export default function Signin() {
   };
 
   const handleLoginClick = () => {
-    signin({ email, password }).then((data) => {
+    authApi.signin({ email, password }).then((data) => {
       if (data?.token) {
-        return navigate('/todo', {
-          state: { signinSuccessToken: data?.token },
-        });
+        return navigate('/todo', {});
       }
       setSigninErrorMessage(data.errorMessage);
     });
   };
 
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem('token')) {
       navigate('/todo');
     }
-  }, [navigate, token]);
+  }, [navigate]);
 
   return (
     <>

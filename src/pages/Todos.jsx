@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import TodoItem from '../components/TodoItem';
-import { useAuth } from '../context/AuthContext';
 import useTodos from '../hooks/useTodos';
 
 export default function Todo({ todosApi }) {
-  const { token } = useAuth();
-  const { state } = useLocation();
   const [todos, addTodo, updateTodo, deleteTodo] = useTodos(todosApi);
   const [text, setText] = useState('');
   const navigate = useNavigate();
@@ -20,10 +17,10 @@ export default function Todo({ todosApi }) {
     setText('');
   };
   useEffect(() => {
-    if (!token && !state) {
+    if (!localStorage.getItem('token')) {
       navigate('/signin');
     }
-  }, [state, token, navigate]);
+  }, [navigate]);
   return (
     <>
       <Header name="TODO LIST" />
