@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 export default function useTodos(todosApi) {
   const [todos, setTodos] = useState(null);
+  const { token } = useAuth();
   const getTodos = useCallback(
     async () => todosApi.getTodoList().then(setTodos),
     [todosApi]
@@ -19,7 +21,9 @@ export default function useTodos(todosApi) {
     [todosApi, getTodos]
   );
   useEffect(() => {
-    getTodos();
+    if (token) {
+      getTodos();
+    }
   }, [getTodos]);
   return [todos, addTodo, updateTodo, deleteTodo];
 }
