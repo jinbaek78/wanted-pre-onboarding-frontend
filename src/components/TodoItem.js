@@ -32,7 +32,13 @@ export default function TodoItem({ todo, onUpdate, onDelete }) {
   };
   return (
     <li className="p-2 flex w-full my-2">
-      <label className="flex basis-8/12 items-center ">
+      <label
+        className={
+          isCompleted
+            ? 'flex basis-8/12 items-center line-through'
+            : 'flex basis-8/12 items-center'
+        }
+      >
         <input
           className="w-7 h-6 mr-2 accent-sky-200"
           type="checkbox"
