@@ -23,7 +23,7 @@ export default function Todo({ todosApi }) {
   }, [navigate]);
   return (
     <>
-      <Header name="TODO LIST" />
+      <Header name="투두 리스트" />
       <div className="mb-3">
         <input
           data-testid="new-todo-input"
