@@ -33,7 +33,7 @@ export default function Signup() {
 
   const handleJoinClick = () => {
     signup({ email, password }).then((data) => {
-      if (data?.['access_token']) {
+      if (data?.token) {
         return navigate('/signin', { state: { email, password } });
       }
       setSignupErrorMessage(data.errorMessage);

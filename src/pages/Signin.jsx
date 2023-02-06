@@ -25,9 +25,9 @@ export default function Signin() {
 
   const handleLoginClick = () => {
     signin({ email, password }).then((data) => {
-      if (data?.['access_token']) {
+      if (data?.token) {
         return navigate('/todo', {
-          state: { signinSuccessToken: data?.['access_token'] },
+          state: { signinSuccessToken: data?.token },
         });
       }
       setSigninErrorMessage(data.errorMessage);
